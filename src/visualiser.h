@@ -1,11 +1,11 @@
-#ifndef visualiser_h
-#define visualiser_h
+#ifndef SRC_VISUALISER_H_
+#define SRC_VISUALISER_H_
 
 #include "langton.h"
 #include <stdbool.h>
 
-static int max_x;
-static int max_y;
+static int max_x = 100;
+static int max_y = 100;
 
 typedef enum colour cell;
 
@@ -16,4 +16,4 @@ cell cell_at_fct(int y, int x); //optional
 void end_visualisation();
 const char* direction_to_s(enum direction d);
 
-#endif
+#endif  // SRC_VISUALISER_H_

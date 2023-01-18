@@ -3,42 +3,47 @@
 #include <stdlib.h>
 #include "visualiser.h"
 
-#define cell_under_ant cell_at(ant->y, ant->x)
-cell *cells;
+cell **cells;
 
 void start_visualisation(struct ant* ant) {
-  setlocale(LC_ALL, "");
-
-   initscr();
-   curs_set(FALSE);
-   max_x = getmaxx(stdscr);
-   max_y = getmaxy(stdscr);
-   cells = calloc(max_y*max_x, sizeof(cell));
-   ant->x = max_x/2;
-   ant->y = max_y/2;
-   ant->direction = RIGHT;
+    initscr();
+    start_color();
+    curs_set(FALSE);
+    init_pair(1, COLOR_WHITE, COLOR_WHITE);
+    cells = init_matrix();
+    chtype c = ' ' | COLOR_PAIR(1);
+    for (int i = 0; i < max_x; i++) {
+        for (int j = 0; j < max_y; j++) {
+            move(j, i);
+            addch(c);
+            cells[i][j] = WHITE;
+        }
+    }
 }
 
-void visualise_and_advance(struct ant* ant) {
-      /* Draw cells and ant */
-      for (int y=0; y<max_y; y++)
-      {
-         for (int x=0; x<max_x; x++)
-         {
-            mvprintw(y,x,
-               ant_is_at(y,x)
-                 ? direction_to_s(ant->direction)
-                 : cell_at(y,x)
-                    ? "█"
-                    : " "
-            );
-         }
-      }
-      refresh();
-      
-      /* Advance to next step */
-      apply_rule(&cell_under_ant, ant);
-      move_forward(ant);
+cell** init_matrix() {
+    cell** matrix = calloc(max_y, sizeof(cell*));
+    for (int i = 0; i < max_y; i++) {
+        matrix[i] = calloc(max_x, sizeof(cell));
+    }
+    return matrix;
+}
+
+void remove_matrix(cell **matrix) {
+    for (int i = 0; i < max_y; i++) {
+        free(matrix[i]);
+    }
+    free(matrix);
+}
+
+void visualise_and_advance(struct ant* ant, const char* rules, size_t len) {
+    int value = cells[ant->x][ant->y];
+    if (value + 1 < len) {
+        move(ant->y, ant->x);
+        
+        chtype c = ' '
+        addch;
+    }
 }
 
 // Check if the user has input "q" to quit
@@ -47,14 +52,6 @@ bool not_quit() {
 }
 
 void end_visualisation() {
-   free(cells);
+   remove_matrix(cells);
    endwin();
 }
-
-const char* direction_to_s(enum direction d) {
-   return UP   == d ? "^" :
-          DOWN == d ? "v" :
-          LEFT == d ? "<" :
-          /* else */  ">" ;
-}
-
