@@ -1,5 +1,5 @@
 CC = gcc
-FLAGS = -Wall -Wextra -lncurses -std=c11
+FLAGS = -Wall -Werror -Wextra -lncurses -std=c11
 FILES = main.c langton.c visualiser.c
 BINNAME = ant
 LIBNAME = libant
