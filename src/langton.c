@@ -1,5 +1,6 @@
 #include "langton.h"
 
+
 void turn_left(struct ant *ant) {
     switch (ant->direction) {
         case UP:
@@ -38,7 +39,7 @@ void turn_right(struct ant *ant) {
     }
 }
 
-void move_forward(struct ant *ant, int max_x, int max_y) {
+void move_forward(int max_x, int max_y, struct ant *ant) {
     switch (ant->direction) {
         case UP:
             ant->y--;
@@ -55,17 +56,17 @@ void move_forward(struct ant *ant, int max_x, int max_y) {
         default:
             break;
     }
-    cut_position(ant, max_x, max_y);
+    cut_position(max_x, max_y, ant);
 }
 
-void cut_position(struct ant *ant, int max_x, int max_y) {
-    if (ant->x < 0) {
-        ant->x = max_x;
-    } else if (ant->x > max_x) {
+void cut_position(int max_x, int max_y, struct ant *ant) {
+    if (ant->x > max_x - 1) {
         ant->x = 0;
-    } else if (ant->y < 0) {
-        ant->y = max_y;
-    } else if (ant->y > max_y) {
+    } else if (ant->x < 0) {
+        ant->x = max_x - 1;
+    } else if (ant->y > max_y - 1) {
         ant->y = 0;
+    } else if (ant->y < 0) {
+        ant->y = max_y - 1;
     }
 }

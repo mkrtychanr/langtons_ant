@@ -1,5 +1,8 @@
 {
     "files.associations": {
-        "test.h": "c"
+        "test.h": "c",
+        "visualiser.h": "c",
+        "string.h": "c",
+        "langton.h": "c"
     }
 }

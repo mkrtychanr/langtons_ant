@@ -2,18 +2,18 @@
 #define SRC_VISUALISER_H_
 
 #include "langton.h"
-#include <stdbool.h>
 
-static int max_x = 100;
-static int max_y = 100;
+int** field;
 
-typedef enum colour cell;
-
-void start_visualisation();
-void visualise_and_advance();
-bool not_quit();
-cell cell_at_fct(int y, int x); //optional
-void end_visualisation();
-const char* direction_to_s(enum direction d);
+void start_visualisation(int max_x, int max_y, struct ant *ant, size_t *generation);
+void end_visualisation(int max_y);
+char get_direction(struct ant *ant);
+void init_field(int max_x, int max_y);
+void remove_field(int max_y);
+void visualise_and_advance(const char* rules, const int len, struct ant *ant, int max_x, int max_y, size_t *generation);
+void draw_gen(int max_y);
+void update_gen(size_t *generation, int max_y);
+void fill_screen(int max_x, int max_y);
+void set_ant(struct ant *ant);
 
 #endif  // SRC_VISUALISER_H_
