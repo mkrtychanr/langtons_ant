@@ -71,7 +71,8 @@ void remove_field(int max_y) {
     free(field);
 }
 
-void visualise_and_advance(const char* rules, const int len, struct ant *ant, int max_x, int max_y, size_t *generation) {
+void visualise_and_advance(const char* rules, const int len, struct ant *ant,
+                           int max_x, int max_y, size_t *generation) {
     if (rules[field[ant->y][ant->x]] == 'L') {
         turn_left(ant);
     } else {

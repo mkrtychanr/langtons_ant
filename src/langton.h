@@ -19,4 +19,4 @@ void turn_right(struct ant *ant);
 void move_forward(int max_x, int max_y, struct ant *ant);
 void cut_position(int max_x, int max_y, struct ant *ant);
 
-#endif  // SRC_LANGHON_H_
+#endif  // SRC_LANGTON_H_
