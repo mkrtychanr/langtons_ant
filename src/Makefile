@@ -4,10 +4,11 @@ FILES = main.c langton.c visualiser.c
 BINNAME = ant
 LIBNAME = libant
 
-all: clean library
-	$(CC) $(FLAGS) $(FILES) -o $(BINNAME)
-	./ant
+all: game
+	./ant LR
 
+game: clean library
+	$(CC) $(FLAGS) $(FILES) -o $(BINNAME)
 library:
 	$(CC) $(FLAGS) -shared -o $(LIBNAME).so -fPIC $(FILES)
 clean:

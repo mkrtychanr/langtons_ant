@@ -2,6 +2,10 @@
 #include <stdlib.h>
 #include "visualiser.h"
 
+void init_colors() {
+    init_color(8, 0, 500, 500);
+}
+
 
 void start_visualisation(int max_x, int max_y, struct ant *ant, size_t *generation) {
     initscr();
@@ -10,6 +14,10 @@ void start_visualisation(int max_x, int max_y, struct ant *ant, size_t *generati
     curs_set(false);
     init_pair(1, COLOR_BLACK, COLOR_WHITE);
     init_pair(2, COLOR_WHITE, COLOR_BLACK);
+    init_pair(3, COLOR_WHITE, COLOR_GREEN);
+    init_pair(4, COLOR_WHITE, COLOR_CYAN);
+    init_pair(5, COLOR_WHITE, COLOR_MAGENTA);
+    init_pair(6, COLOR_WHITE, COLOR_RED);
     init_field(max_x, max_y);
     for (int i = 0; i < max_x; i++) {
         for (int j = 0; j < max_y; j++) {
