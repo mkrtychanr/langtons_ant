@@ -3,6 +3,8 @@
 
 #include "langton.h"
 
+void init_colors();
+
 // поле
 int** field;
 

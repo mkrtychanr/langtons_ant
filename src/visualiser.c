@@ -4,6 +4,24 @@
 
 void init_colors() {
     init_color(8, 0, 500, 500);
+    init_color(9, 585, 292, 0);
+    init_color(10, 433, 0, 207);
+    init_color(11, 914, 550, 964);
+    init_color(12, 207, 406, 175);
+    init_color(13, 70, 136, 0);
+    init_color(14, 136, 50, 128);
+    init_color(15, 137, 128, 160);
+    init_color(16, 906, 472, 242);
+    init_color(17, 894, 316, 214);
+    init_color(18, 765, 117, 226);
+    init_color(19, 996, 570, 93);
+    init_color(20, 121, 679, 910);
+    init_color(21, 250, 875, 812);
+    init_color(22, 843, 867, 726);
+    init_color(23, 996, 968, 859);
+    init_color(24, 933, 800, 718);
+    init_color(25, 539, 472, 363);
+    init_color(26, 589, 601, 664);
 }
 
 
@@ -12,12 +30,33 @@ void start_visualisation(int max_x, int max_y, struct ant *ant, size_t *generati
     noecho();
     start_color();
     curs_set(false);
+    init_colors();
     init_pair(1, COLOR_BLACK, COLOR_WHITE);
     init_pair(2, COLOR_WHITE, COLOR_BLACK);
-    init_pair(3, COLOR_WHITE, COLOR_GREEN);
-    init_pair(4, COLOR_WHITE, COLOR_CYAN);
-    init_pair(5, COLOR_WHITE, COLOR_MAGENTA);
-    init_pair(6, COLOR_WHITE, COLOR_RED);
+    init_pair(3, COLOR_WHITE, 8);
+    init_pair(4, COLOR_BLACK, COLOR_GREEN);
+    init_pair(5, COLOR_BLACK, COLOR_CYAN);
+    init_pair(6, COLOR_WHITE, COLOR_MAGENTA);
+    init_pair(7, COLOR_WHITE, COLOR_RED);
+    init_pair(8, COLOR_BLACK, COLOR_YELLOW);
+    init_pair(9, COLOR_WHITE, 9);
+    init_pair(10, COLOR_WHITE, 10);
+    init_pair(11, COLOR_BLACK, 11);
+    init_pair(12, COLOR_WHITE, 12);
+    init_pair(13, COLOR_WHITE, 13);
+    init_pair(14, COLOR_WHITE, 14);
+    init_pair(15, COLOR_WHITE, 15);
+    init_pair(16, COLOR_BLACK, 16);
+    init_pair(17, COLOR_BLACK, 17);
+    init_pair(18, COLOR_BLACK, 18);
+    init_pair(19, COLOR_BLACK, 19);
+    init_pair(20, COLOR_BLACK, 20);
+    init_pair(21, COLOR_BLACK, 21);
+    init_pair(22, COLOR_BLACK, 22);
+    init_pair(23, COLOR_BLACK, 23);
+    init_pair(24, COLOR_BLACK, 24);
+    init_pair(25, COLOR_BLACK, 25);
+    init_pair(26, COLOR_BLACK, 26);
     init_field(max_x, max_y);
     for (int i = 0; i < max_x; i++) {
         for (int j = 0; j < max_y; j++) {
