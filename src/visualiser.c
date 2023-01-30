@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "visualiser.h"
 
+
 void init_colors() {
     init_color(8, 0, 500, 500);
     init_color(9, 585, 292, 0);
@@ -60,22 +61,16 @@ void start_visualisation(int max_x, int max_y, struct ant *ant, size_t *generati
     init_field(max_x, max_y);
     for (int i = 0; i < max_x; i++) {
         for (int j = 0; j < max_y; j++) {
-            field[j][i] = 0;
+            cell_at(i, j) = 0;
         }
     }
     ant->x = max_x / 2;
     ant->y = max_y / 2;
     ant->direction = UP;
-    fill_screen(max_x, max_y);
-    set_ant(ant);
+    fill_screen(ant, max_x, max_y);
     draw_gen(max_y);
     update_gen(generation, max_y);
     refresh();
-}
-
-void set_ant(struct ant *ant) {
-    move(ant->y, ant->x);
-    addch(get_direction(ant) | COLOR_PAIR(field[ant->y][ant->x] + 1));
 }
 
 void end_visualisation(int max_y) {
@@ -119,19 +114,14 @@ void remove_field(int max_y) {
 }
 
 void visualise_and_advance(const char* rules, const int len, struct ant *ant,
-                           int max_x, int max_y, size_t *generation) {
-    if (rules[field[ant->y][ant->x]] == 'L') {
-        turn_left(ant);
+                           int max_x, int max_y, size_t *generation, bool gameLevel) {
+    if (!gameLevel) {
+        apply_rule(rules, len, ant);
     } else {
-        turn_right(ant);
+        apply_rule_general(rules, len, ant);
     }
-    field[ant->y][ant->x]++;
-    if (field[ant->y][ant->x] == len) {
-        field[ant->y][ant->x] = 0;
-    }
-    fill_screen(max_x, max_y);
     move_forward(max_x, max_y, ant);
-    set_ant(ant);
+    fill_screen(ant, max_x, max_y);
     draw_gen(max_y);
     update_gen(generation, max_y);
     refresh();
@@ -149,11 +139,35 @@ void update_gen(size_t *generation, int max_y) {
     (*generation)++;
 }
 
-void fill_screen(int max_x, int max_y) {
+void fill_screen(struct ant *ant, int max_x, int max_y) {
     for (int i = 0; i < max_x; i++) {
         for (int j = 0; j < max_y; j++) {
             move(j, i);
-            addch(' ' | COLOR_PAIR(field[j][i] + 1));
+            if (ant_is_at(j, i)) {
+                addch(get_direction(ant) | COLOR_PAIR(cell_at(ant->x, ant->y) + 1));
+            } else {
+                addch(' ' | COLOR_PAIR(cell_at(i, j) + 1));
+            }
         }
+    }
+}
+
+void apply_rule(const char* rules, const int len, struct ant *ant) {
+    real_rule(rules, len, ant);
+}
+
+void apply_rule_general(const char* rules, const int len, struct ant *ant) {
+    real_rule(rules, len, ant);
+}
+
+void real_rule(const char* rules, const int len, struct ant *ant) {
+    if (rules[cell_at(ant->x, ant->y)] == 'L') {
+        turn_left(ant);
+    } else {
+        turn_right(ant);
+    }
+    cell_at(ant->x, ant->y)++;
+    if (cell_at(ant->x, ant->y) == len) {
+        cell_at(ant->x, ant->y) = 0;
     }
 }

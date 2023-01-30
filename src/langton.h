@@ -1,6 +1,8 @@
 #ifndef SRC_LANGTON_H_
 #define SRC_LANGTON_H_
 
+#define ant_is_at(posy,posx) posy == ant->y && posx == ant->x
+
 // enum направлений
 enum {
     UP,

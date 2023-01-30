@@ -2,10 +2,10 @@
 #include <ncurses.h>
 #include <stdlib.h>
 
-#include "langton.h"
+// #include "langton.h"
 #include "visualiser.h"
 
-void init_rules(char* rules, int* len, int argc, char *argv[]);
+bool init_rules(char* rules, int* len, int argc, char *argv[]);
 
 int main(int argc, char *argv[]) {
     int max_x = 100;
@@ -14,18 +14,18 @@ int main(int argc, char *argv[]) {
     int len = 2;
     char rules[128];
     size_t generation = 0;
-    init_rules(rules, &len, argc, argv);
+    bool rule = init_rules(rules, &len, argc, argv);
     start_visualisation(max_x, max_y, &ant, &generation);
     char input = getch();
     while (input != 'q' && input != 'Q') {
-        visualise_and_advance(rules, (int)len, &ant, max_x, max_y, &generation);
+        visualise_and_advance(rules, (int)len, &ant, max_x, max_y, &generation, rule);
         input = getch();
     }
     end_visualisation(max_y);
     return 0;
 }
 
-void init_rules(char* rules, int* len, int argc, char *argv[]) {
+bool init_rules(char* rules, int* len, int argc, char *argv[]) {
     bool valid_string = true;
     if (argc > 1) {
         size_t temp_len = strlen(argv[1]);
@@ -45,4 +45,5 @@ void init_rules(char* rules, int* len, int argc, char *argv[]) {
         strcpy(rules, "LR");
         *len = 2;
     }
+    return valid_string;
 }
